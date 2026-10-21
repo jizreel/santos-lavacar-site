@@ -160,7 +160,7 @@
     if (!/^55\d{10,11}$/.test(phone)) return '';
     const cleanService = String(service || 'orientação').replace(/[\u0000-\u001F\u007F]/g, ' ').slice(0, 120);
     const cleanVehicle = String(vehicle || '').replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, 80);
-    const greeting = 'Olá, Santos Lavação!';
+    const greeting = 'Olá, Santos Lavacar!';
     const model = cleanVehicle ? '\nModelo do veículo: ' + cleanVehicle : '\nModelo do veículo: [vou informar]';
     const request = '\nInteresse: ' + cleanService + '.\nPodem me orientar sobre valores, condições e disponibilidade?';
     return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(greeting + model + request);

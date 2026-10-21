@@ -1,8 +1,8 @@
-# Santos Lavação — mock navegável, SEO local e acompanhamento
+# Santos Lavacar — mock navegável, SEO local e acompanhamento
 
 Abra **`index.html`** no navegador para avaliar o site. Mantenha a pasta `assets` e os arquivos `styles.css`, `config.js` e `app.js` ao lado do HTML. Não é preciso instalar dependências para navegar no mock.
 
-**Status:** site operacional em produção. URL canônica: `https://www.santoslavacao.com.br/`. Hospedagem: GitHub Pages + DNS Cloudflare. Contato: WhatsApp e `contato@santoslavacao.com.br`. Redes sociais ainda pendentes (seção com aviso). Analytics desativado até configurar GA4.
+**Status:** site operacional em produção. Marca oficial: **Santos Lavacar**. URL canônica: `https://www.santoslavacar.com.br/`. Domínio legado `santoslavacao.com.br` redireciona para o canônico. Hospedagem: GitHub Pages + DNS Cloudflare. Contato: WhatsApp e `contato@santoslavacar.com.br` (Zoho Mail no domínio canônico). Redes sociais ainda pendentes (seção com aviso). Analytics desativado até configurar GA4.
 
 ## O contexto aplicado ao site
 
@@ -12,7 +12,7 @@ A paleta segue azul-marinho `#0B1F33`, ciano `#00B8D9`, grafite `#1F2933`, branc
 
 O posicionamento escolhido para o layout é **profissional, próximo e transparente**. Em vez de depoimentos, estrelas ou superlativos sem comprovação, o site explica a oferta, mostra as condições de agenda e facilita uma conversa objetiva. “Cuidado que você vê, confiança que permanece” está na página inicial, na faixa **O que priorizamos**, entre os veículos atendidos e os serviços.
 
-**Informações confirmadas nos materiais revisados:** Santos Lavação; Rua Guilherme, nº 1533, Costa e Silva, CEP 89218-500, Joinville/SC; acesso pelos fundos da Auto Peças Mecânica e Borracharia Peçaville; atendimento a motos, carros, SUVs e camionetes; serviços descritos no projeto; WhatsApp **(47) 9 8885-4331**, registrado como confirmado no plano de posts.
+**Informações confirmadas nos materiais revisados:** Santos Lavacar; Rua Guilherme, nº 1533, Costa e Silva, CEP 89218-500, Joinville/SC; acesso pelos fundos da Auto Peças Mecânica e Borracharia Peçaville; atendimento a motos, carros, SUVs e camionetes; serviços descritos no projeto; WhatsApp **(47) 9 8885-4331**, registrado como confirmado no plano de posts.
 
 **Informações não confirmadas:** perfis oficiais do Instagram/TikTok/Facebook, pin de Perfil da Empresa no Google, horários, preços, prazos, depoimentos e fotos autorizadas. Esses dados não foram inventados. Documentos particulares, contratos, comprovantes e informações de Pix não foram copiados para o site.
 
@@ -31,7 +31,7 @@ A Peçaville é apresentada exclusivamente como **referência de localização**
 - Maps: com o endereço confirmado, **Como chegar** abre o trajeto e a seção mostra o mapa desse endereço. A Peçaville permanece como referência de acesso. Sem pin de Perfil da Empresa, o mapa não é apresentado como ficha verificada do Google.
 - Preferências de estatísticas, página de privacidade e página 404.
 
-As duas imagens do comparador foram geradas em um par ilustrativo e separadas em arquivos. **Não são trabalhos reais da Santos Lavação.** A foto de destaque também é conceitual e não representa a instalação do negócio. As notas permanecem visíveis. Para um portfólio real, usar fotos autorizadas, do mesmo veículo, com ângulo, distância e iluminação consistentes, sem placas ou rostos identificáveis sem autorização.
+As duas imagens do comparador foram geradas em um par ilustrativo e separadas em arquivos. **Não são trabalhos reais da Santos Lavacar.** A foto de destaque também é conceitual e não representa a instalação do negócio. As notas permanecem visíveis. Para um portfólio real, usar fotos autorizadas, do mesmo veículo, com ângulo, distância e iluminação consistentes, sem placas ou rostos identificáveis sem autorização.
 
 ## Arquivos e edição
 
@@ -67,19 +67,33 @@ O número de WhatsApp já está preenchido como `5547988854331`. Confirme se con
 
 ## GitHub Pages: compatibilidade técnica e ressalva de uso
 
-O pacote contém HTML, CSS, JavaScript e assets estáticos, com caminhos relativos. Isso permite servir o site tanto na raiz de um domínio quanto em um caminho de projeto, como o formato `https://USUARIO.github.io/REPOSITORIO/` — **esse formato é apenas um exemplo, não um domínio atribuído à Santos Lavação**.[1]
+O pacote contém HTML, CSS, JavaScript e assets estáticos, com caminhos relativos. Isso permite servir o site tanto na raiz de um domínio quanto em um caminho de projeto, como o formato `https://USUARIO.github.io/REPOSITORIO/` — **esse formato é apenas um exemplo, não um domínio atribuído à Santos Lavacar**.[1]
 
 **Importante:** a documentação do GitHub Pages restringe seu uso como hospedagem gratuita para negócios online, comércio eletrônico e sites primordialmente voltados a facilitar transações comerciais.[2] Este material é um mock institucional sem pagamento, login ou reserva efetiva; isso **não permite garantir** que seu futuro uso comercial esteja de acordo com os termos. Revise as condições antes do uso operacional. Para um site de aquisição comercial, a recomendação é avaliar uma hospedagem apropriada, como Cloudflare Pages, Netlify ou outro provedor, após conferir os termos do plano escolhido. O mesmo código pode ser hospedado nesses serviços, sem reconstrução.
 
 Publicação neste repositório:
 
-1. Repositório: `jizreel/santos-lavacar-site`. Modo `production`, canônico `https://www.santoslavacao.com.br/`.
-2. GitHub Pages serve `main` na raiz; arquivo `CNAME` aponta para `www.santoslavacao.com.br`.
-3. DNS no Cloudflare (não altere registros MX do e-mail):
+1. Repositório: `jizreel/santos-lavacar-site`. Modo `production`, canônico `https://www.santoslavacar.com.br/`.
+2. GitHub Pages serve `main` na raiz; arquivo `CNAME` aponta para `www.santoslavacar.com.br`.
+3. DNS no Cloudflare — domínio **canônico** `santoslavacar.com.br` (não altere registros MX do Zoho Mail):
    - `www` → CNAME → `jizreel.github.io` (proxy laranja OK com SSL **Full (strict)**; se der loop, use DNS only / cinza).
-   - Apex `@` → Redirect Rule 301 para `https://www.santoslavacao.com.br` **ou** CNAME flattening `@` → `jizreel.github.io`.
-4. Em GitHub: Settings → Pages → Custom domain = `www.santoslavacao.com.br` → aguarde verificação → Enforce HTTPS.
+   - Apex `@` → Redirect Rule 301 para `https://www.santoslavacar.com.br` **ou** CNAME flattening `@` → `jizreel.github.io`.
+4. Em GitHub: Settings → Pages → Custom domain = `www.santoslavacar.com.br` → aguarde verificação → Enforce HTTPS.
 5. CI valida a geração; tag `v*.*.*` gera Release.
+
+### Redirect do domínio legado `santoslavacao.com.br`
+
+O site vive só em `santoslavacar.com.br`. O domínio antigo deve **redirecionar** (301), não hospedar uma cópia do site.
+
+No Cloudflare da zona `santoslavacao.com.br`:
+
+1. Crie uma **Redirect Rule** (Rules → Redirect Rules):
+   - Se o hostname for `santoslavacao.com.br` **ou** `www.santoslavacao.com.br`
+   - Então redirecione dinamicamente para `https://www.santoslavacar.com.br/${1}` (ou URL estática `https://www.santoslavacar.com.br/`) com status **301**
+2. DNS mínimo nesse domínio (para a regra responder):
+   - `@` e `www` apontando para um destino que o Cloudflare possa proxiar (ex.: CNAME flattening / A placeholder com proxy laranja), **sem** apontar o GitHub Pages custom domain para `santoslavacao.com.br`
+3. **Não** coloque `santoslavacao.com.br` no Custom domain do GitHub Pages — o `CNAME` do repositório deve continuar só com `www.santoslavacar.com.br`
+4. Após o SSL do domínio legado, teste: `http://santoslavacao.com.br` e `https://www.santoslavacao.com.br` devem cair em `https://www.santoslavacar.com.br/`
 
 ### Passagem de mock para site operacional
 

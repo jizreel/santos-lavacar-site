@@ -42,7 +42,7 @@ const contactEmail = String(config.contactEmail || '').trim().toLowerCase();
 if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) throw new Error('contactEmail inválido.');
 if (production && !contactEmail) throw new Error('Produção exige contactEmail operacional (ex.: contato@dominio).');
 
-const whatsapp = 'https://wa.me/' + config.whatsapp + '?text=' + encodeURIComponent('Olá, Santos Lavação! Quero orientação para cuidar do meu veículo. Podem me informar valores, condições e disponibilidade?');
+const whatsapp = 'https://wa.me/' + config.whatsapp + '?text=' + encodeURIComponent('Olá, Santos Lavacar! Quero orientação para cuidar do meu veículo. Podem me informar valores, condições e disponibilidade?');
 const fallbackMaps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Peçaville Costa e Silva Joinville SC');
 const postalKeys = ['streetAddress', 'postalCode', 'addressLocality', 'addressRegion', 'addressCountry'];
 const postal = Object.fromEntries(postalKeys.filter((key) => config.address?.[key]).map((key) => [key, config.address[key]]));
@@ -54,7 +54,7 @@ const routeUrl = maps || directions;
 if (production && !routeUrl) throw new Error('Produção exige o link exato do Google Maps ou o endereço completo.');
 const located = Boolean(postal.streetAddress && postal.postalCode);
 const schema = {
-  '@context': 'https://schema.org', '@type': 'CarWash', name: 'Santos Lavação',
+  '@context': 'https://schema.org', '@type': 'CarWash', name: 'Santos Lavacar',
   description: located
     ? 'Lavação automotiva na ' + postal.streetAddress + ', ' + (neighborhood || 'Costa e Silva') + ', Joinville/SC. Acesso pelos fundos da Peçaville.'
     : 'Lavação automotiva para motos, carros, SUVs e camionetes no Costa e Silva, Joinville/SC, nos fundos da Peçaville.',
@@ -64,7 +64,7 @@ const schema = {
 };
 if (siteUrl) {
   schema.url = siteUrl;
-  schema['@id'] = siteUrl + '#santos-lavacao';
+  schema['@id'] = siteUrl + '#santos-lavacar';
   schema.logo = new URL('assets/logo.png', siteUrl).href;
 }
 if (Object.values(social).some(Boolean)) schema.sameAs = Object.values(social).filter(Boolean);
@@ -73,10 +73,10 @@ if (config.openingHoursSpecification?.length) schema.openingHoursSpecification =
 let urlMeta = '';
 if (siteUrl) {
   const image = new URL('assets/social-card.png', siteUrl).href;
-  urlMeta = `<link rel="canonical" href="${esc(siteUrl)}">\n  <meta property="og:url" content="${esc(siteUrl)}">\n  <meta property="og:image" content="${esc(image)}">\n  <meta property="og:image:width" content="1200">\n  <meta property="og:image:height" content="630">\n  <meta property="og:image:alt" content="Santos Lavação — lavação automotiva no Costa e Silva, Joinville">\n  <meta name="twitter:image" content="${esc(image)}">`;
+  urlMeta = `<link rel="canonical" href="${esc(siteUrl)}">\n  <meta property="og:url" content="${esc(siteUrl)}">\n  <meta property="og:image" content="${esc(image)}">\n  <meta property="og:image:width" content="1200">\n  <meta property="og:image:height" content="630">\n  <meta property="og:image:alt" content="Santos Lavacar — lavação automotiva no Costa e Silva, Joinville">\n  <meta name="twitter:image" content="${esc(image)}">`;
 }
 const channels = [{ key: 'instagram', title: 'Instagram', text: 'Serviços e registros de antes e depois.' }, { key: 'tiktok', title: 'TikTok', text: 'Vídeos do atendimento.' }];
-if (social.facebook) channels.push({ key: 'facebook', title: 'Facebook', text: 'Página da Santos Lavação no Facebook.' });
+if (social.facebook) channels.push({ key: 'facebook', title: 'Facebook', text: 'Página da Santos Lavacar no Facebook.' });
 const socialCards = channels.map(({ key, title, text }) => {
   const url = social[key];
   const start = url ? `<a class="social-card" href="${esc(url)}" target="_blank" rel="noopener noreferrer" data-event="click_social" data-channel="${key}" data-position="redes">` : `<button type="button" class="social-card" data-pending="${key}" aria-label="${title}: perfil oficial será publicado">`;
@@ -90,13 +90,13 @@ const values = {
   SOCIAL_NOTE_HIDDEN: channels.every(({ key }) => social[key]) ? 'hidden' : '',
   META_DESCRIPTION: esc(located
     ? 'Lavação na ' + postal.streetAddress + ', ' + (neighborhood || 'Costa e Silva') + ', Joinville/SC. Acesso pelos fundos da Peçaville. WhatsApp (47) 9 8885-4331.'
-    : 'Lavação de motos, carros, SUVs e camionetes no Costa e Silva, Joinville. Serviços da Santos Lavação, nos fundos da Peçaville.'),
+    : 'Lavação de motos, carros, SUVs e camionetes no Costa e Silva, Joinville. Serviços da Santos Lavacar, nos fundos da Peçaville.'),
   HERO_PLACE: located
     ? '<strong>' + esc(postal.streetAddress) + '</strong><span>' + esc(neighborhood || 'Costa e Silva') + ' · fundos da Peçaville</span>'
     : 'Nos fundos da <strong>Peçaville</strong><span>Lavação automotiva no Costa e Silva</span>',
   LOCATION_INTRO: located
-    ? 'A Santos Lavação fica na <strong>' + esc(postal.streetAddress) + '</strong>, ' + esc(neighborhood) + ', CEP ' + esc(postal.postalCode) + ', ' + esc(postal.addressLocality) + '/' + esc(postal.addressRegion) + '. O acesso é pelos fundos da <strong>Auto Peças Mecânica e Borracharia Peçaville</strong>.'
-    : 'A Santos Lavação fica nos fundos da <strong>Auto Peças Mecânica e Borracharia Peçaville</strong>, em Joinville/SC.',
+    ? 'A Santos Lavacar fica na <strong>' + esc(postal.streetAddress) + '</strong>, ' + esc(neighborhood) + ', CEP ' + esc(postal.postalCode) + ', ' + esc(postal.addressLocality) + '/' + esc(postal.addressRegion) + '. O acesso é pelos fundos da <strong>Auto Peças Mecânica e Borracharia Peçaville</strong>.'
+    : 'A Santos Lavacar fica nos fundos da <strong>Auto Peças Mecânica e Borracharia Peçaville</strong>, em Joinville/SC.',
   LOCATION_TITLE: located ? esc(postal.streetAddress.split(',')[0]) + ',<br>nº ' + esc((postal.streetAddress.split(',')[1] || '').replace(/\D/g, '')) + '.' : 'Nos fundos<br>da Peçaville.',
   LOCATION_LINE: located
     ? esc([neighborhood, postal.addressLocality, postal.addressRegion].filter(Boolean).join(' · ') + ' · CEP ' + postal.postalCode)
@@ -104,21 +104,21 @@ const values = {
   FOOTER_PLACE: esc(located ? postal.streetAddress + ' · ' + (neighborhood || 'Costa e Silva') + ' · ' + postal.addressLocality + '/' + postal.addressRegion : 'Costa e Silva · Joinville/SC'),
   MAPS: esc(routeUrl || fallbackMaps), MAPS_LABEL: routeUrl ? 'Como chegar' : 'Buscar referência no Maps',
   MAPS_NOTE: located
-    ? 'O mapa usa o endereço da Santos Lavação.'
-    : 'Ponto de referência da Santos Lavação.',
+    ? 'O mapa usa o endereço da Santos Lavacar.'
+    : 'Ponto de referência da Santos Lavacar.',
   ADDRESS_FAQ: esc(located
     ? 'Rua Guilherme, nº ' + (postal.streetAddress.split(',')[1] || '').replace(/\D/g, '') + ', ' + (neighborhood || 'Costa e Silva') + ', CEP ' + postal.postalCode + ', ' + postal.addressLocality + '/' + postal.addressRegion + '. O box está localizado nos fundos da Peçaville.'
     : 'A referência publicada é nos fundos da Peçaville, no Costa e Silva, em Joinville/SC.'),
   MAP_BLOCK: mapEmbed
-    ? '<div class="location-map"><iframe title="Mapa da Santos Lavação na ' + esc(placeQuery) + '" src="' + esc(mapEmbed) + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe><p>O trajeto abre em Como chegar.</p></div>'
+    ? '<div class="location-map"><iframe title="Mapa da Santos Lavacar na ' + esc(placeQuery) + '" src="' + esc(mapEmbed) + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe><p>O trajeto abre em Como chegar.</p></div>'
     : '',
   HOURS_TEXT: esc(config.hoursText), YEAR: new Date().getFullYear(),
   CONTACT_EMAIL_BLOCK: contactEmail
     ? `<a href="mailto:${esc(contactEmail)}" class="phone-link email-link">${esc(contactEmail)}</a>`
     : '',
   PRIVACY_CONTACT: contactEmail
-    ? `Para falar com a Santos Lavação, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a> ou o e-mail <a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>.`
-    : `Para falar com a Santos Lavação, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a>.`
+    ? `Para falar com a Santos Lavacar, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a> ou o e-mail <a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>.`
+    : `Para falar com a Santos Lavacar, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a>.`
 };
 let html = await fs.readFile(path.join(root, 'scripts/index.template.html'), 'utf8');
 html = html.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
