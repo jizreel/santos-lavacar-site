@@ -1,0 +1,32 @@
+{
+  "mode": "mock",
+  "siteUrl": "https://jizreel.github.io/santos-lavacar-site/",
+  "whatsapp": "5547988854331",
+  "social": {
+    "instagram": "",
+    "tiktok": "",
+    "facebook": ""
+  },
+  "mapsUrl": "",
+  "address": {
+    "streetAddress": "Rua Guilherme, 1533",
+    "neighborhood": "Costa e Silva",
+    "postalCode": "89218-500",
+    "addressLocality": "Joinville",
+    "addressRegion": "SC",
+    "addressCountry": "BR"
+  },
+  "hoursText": "Consulte pelo WhatsApp.",
+  "openingHoursSpecification": [],
+  "googleSiteVerification": "",
+  "analytics": {
+    "enabled": false,
+    "measurementId": ""
+  },
+  "publication": {
+    "contentApproved": false,
+    "hostingTermsReviewed": false,
+    "privacyReviewed": false,
+    "realPortfolioConfirmed": false
+  }
+}

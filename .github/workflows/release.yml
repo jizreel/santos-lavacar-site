@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate site
+        run: node scripts/configurar.mjs
+
+      - name: Package site zip
+        run: |
+          mkdir -p dist
+          cp index.html privacidade.html 404.html styles.css app.js config.js robots.txt sitemap.xml .nojekyll dist/
+          if [ -f _headers ]; then cp _headers dist/; fi
+          cp -r assets dist/
+          cd dist && zip -r "../santos-lavacar-site-${GITHUB_REF_NAME}.zip" .
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES=$(cat <<'EOF'
+          ## Santos Lavação — site mock
+
+          Pacote estático para demonstração no GitHub Pages.
+
+          - Modo: `mock` (`noindex`)
+          - Hospedagem: GitHub Pages (Actions)
+          - URL: https://jizreel.github.io/santos-lavacar-site/
+
+          ### Conteúdo do release
+          - `santos-lavacar-site-${{ github.ref_name }}.zip` — arquivos estáticos gerados
+
+          ### Notas
+          Este material é proposta/mock institucional. Não ativa Analytics, não confirma agendamento e não deve ser tratado como site operacional de produção sem as confirmações em `site.config.json`.
+          EOF
+          )
+          gh release create "${GITHUB_REF_NAME}" \
+            "santos-lavacar-site-${GITHUB_REF_NAME}.zip" \
+            --title "Santos Lavação ${GITHUB_REF_NAME}" \
+            --notes "$NOTES"

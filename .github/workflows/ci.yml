@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate site (mock)
+        run: node scripts/configurar.mjs
+
+      - name: Smoke check required files
+        run: |
+          test -f index.html
+          test -f config.js
+          test -f robots.txt
+          test -f sitemap.xml
+          test -f .nojekyll
+          test -f assets/logo.png
+          test -f assets/hero.webp
+          grep -q 'window.SANTOS_CONFIG' config.js
