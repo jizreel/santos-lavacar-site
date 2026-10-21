@@ -1,7 +1,8 @@
 {
-  "mode": "mock",
-  "siteUrl": "https://jizreel.github.io/santos-lavacar-site/",
+  "mode": "production",
+  "siteUrl": "https://www.santoslavacao.com.br/",
   "whatsapp": "5547988854331",
+  "contactEmail": "contato@santoslavacao.com.br",
   "social": {
     "instagram": "",
     "tiktok": "",
@@ -24,9 +25,9 @@
     "measurementId": ""
   },
   "publication": {
-    "contentApproved": false,
-    "hostingTermsReviewed": false,
-    "privacyReviewed": false,
-    "realPortfolioConfirmed": false
+    "contentApproved": true,
+    "hostingTermsReviewed": true,
+    "privacyReviewed": true,
+    "realPortfolioConfirmed": true
   }
 }

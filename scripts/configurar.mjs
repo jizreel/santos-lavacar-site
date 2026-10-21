@@ -37,8 +37,11 @@ if (production) {
   const required = ['contentApproved', 'hostingTermsReviewed', 'privacyReviewed', 'realPortfolioConfirmed'];
   for (const field of required) if (!config.publication?.[field]) throw new Error('Antes de publicar, confirme publication.' + field + ' no site.config.json.');
   if (!config.address?.streetAddress || !config.address?.postalCode) throw new Error('Produção exige endereço completo e CEP confirmados para SEO local.');
-  if (!Object.values(social).some(Boolean)) throw new Error('Produção exige ao menos um perfil social oficial.');
 }
+const contactEmail = String(config.contactEmail || '').trim().toLowerCase();
+if (contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) throw new Error('contactEmail inválido.');
+if (production && !contactEmail) throw new Error('Produção exige contactEmail operacional (ex.: contato@dominio).');
+
 const whatsapp = 'https://wa.me/' + config.whatsapp + '?text=' + encodeURIComponent('Olá, Santos Lavação! Quero orientação para cuidar do meu veículo. Podem me informar valores, condições e disponibilidade?');
 const fallbackMaps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Peçaville Costa e Silva Joinville SC');
 const postalKeys = ['streetAddress', 'postalCode', 'addressLocality', 'addressRegion', 'addressCountry'];
@@ -109,7 +112,13 @@ const values = {
   MAP_BLOCK: mapEmbed
     ? '<div class="location-map"><iframe title="Mapa da Santos Lavação na ' + esc(placeQuery) + '" src="' + esc(mapEmbed) + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe><p>O trajeto abre em Como chegar.</p></div>'
     : '',
-  HOURS_TEXT: esc(config.hoursText), YEAR: new Date().getFullYear()
+  HOURS_TEXT: esc(config.hoursText), YEAR: new Date().getFullYear(),
+  CONTACT_EMAIL_BLOCK: contactEmail
+    ? `<a href="mailto:${esc(contactEmail)}" class="phone-link email-link">${esc(contactEmail)}</a>`
+    : '',
+  PRIVACY_CONTACT: contactEmail
+    ? `Para falar com a Santos Lavação, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a> ou o e-mail <a href="mailto:${esc(contactEmail)}">${esc(contactEmail)}</a>.`
+    : `Para falar com a Santos Lavação, inclusive sobre privacidade, use o <a href="https://wa.me/${esc(config.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp (47) 9 8885-4331</a>.`
 };
 let html = await fs.readFile(path.join(root, 'scripts/index.template.html'), 'utf8');
 html = html.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
@@ -123,9 +132,20 @@ await fs.writeFile(path.join(root, 'robots.txt'), production ? `User-agent: *\nA
 const pages = production ? `<url><loc>${esc(siteUrl)}</loc></url>` : '';
 await fs.writeFile(path.join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages}</urlset>\n`);
 await fs.writeFile(path.join(root, '.nojekyll'), '');
+const host = siteUrl ? new URL(siteUrl).hostname : '';
+const cnamePath = path.join(root, 'CNAME');
+if (production && host && !host.endsWith('github.io')) {
+  await fs.writeFile(cnamePath, host + '\n');
+} else {
+  await fs.rm(cnamePath, { force: true });
+}
 const notFoundPath = path.join(root, '404.html');
 let notFound = await fs.readFile(notFoundPath, 'utf8');
 notFound = notFound.replace(/(<a id="home" href=")[^"]*(")/, '$1' + esc(siteUrl || './') + '$2');
 notFound = notFound.replace(/<script>[\s\S]*?<\/script>/g, '');
 await fs.writeFile(notFoundPath, notFound);
-console.log(`Site gerado em ${root}\nModo: ${config.mode}\nSEO: ${production ? 'indexável' : 'não indexável'}\nPerfis conectados: ${Object.values(social).filter(Boolean).length}\nAnalytics: ${config.analytics?.enabled && production ? 'configurado; somente após consentimento' : 'desativado'}`);
+const privacyPath = path.join(root, 'privacidade.html');
+let privacy = await fs.readFile(privacyPath, 'utf8');
+privacy = privacy.replace(/<h2>Contato<\/h2><p>[\s\S]*?<\/p>(?=<p><a href="\.\/index\.html")/, `<h2>Contato</h2><p>${values.PRIVACY_CONTACT}</p>`);
+await fs.writeFile(privacyPath, privacy);
+console.log(`Site gerado em ${root}\nModo: ${config.mode}\nSEO: ${production ? 'indexável' : 'não indexável'}\nDomínio: ${host || '(relativo)'}\nE-mail: ${contactEmail || '(não definido)'}\nPerfis conectados: ${Object.values(social).filter(Boolean).length}\nAnalytics: ${config.analytics?.enabled && production ? 'configurado; somente após consentimento' : 'desativado'}`);

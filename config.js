@@ -1,5 +1,5 @@
 window.SANTOS_CONFIG = {
-  "mode": "mock",
+  "mode": "production",
   "whatsapp": "5547988854331",
   "analytics": {
     "enabled": false,

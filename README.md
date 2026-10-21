@@ -2,7 +2,7 @@
 
 Abra **`index.html`** no navegador para avaliar o site. Mantenha a pasta `assets` e os arquivos `styles.css`, `config.js` e `app.js` ao lado do HTML. Não é preciso instalar dependências para navegar no mock.
 
-**Status:** mock publicado para avaliação em GitHub Pages (`https://jizreel.github.io/santos-lavacar-site/`). Permanece com `noindex`, sitemap sem URLs de produção e Google Analytics desativado. Não é site operacional: sem pagamento, login ou reserva efetiva.
+**Status:** site operacional em produção. URL canônica: `https://www.santoslavacao.com.br/`. Hospedagem: GitHub Pages + DNS Cloudflare. Contato: WhatsApp e `contato@santoslavacao.com.br`. Redes sociais ainda pendentes (seção com aviso). Analytics desativado até configurar GA4.
 
 ## O contexto aplicado ao site
 
@@ -71,13 +71,15 @@ O pacote contém HTML, CSS, JavaScript e assets estáticos, com caminhos relativ
 
 **Importante:** a documentação do GitHub Pages restringe seu uso como hospedagem gratuita para negócios online, comércio eletrônico e sites primordialmente voltados a facilitar transações comerciais.[2] Este material é um mock institucional sem pagamento, login ou reserva efetiva; isso **não permite garantir** que seu futuro uso comercial esteja de acordo com os termos. Revise as condições antes do uso operacional. Para um site de aquisição comercial, a recomendação é avaliar uma hospedagem apropriada, como Cloudflare Pages, Netlify ou outro provedor, após conferir os termos do plano escolhido. O mesmo código pode ser hospedado nesses serviços, sem reconstrução.
 
-Demonstração configurada neste repositório:
+Publicação neste repositório:
 
-1. Repositório exclusivo: `jizreel/santos-lavacar-site` (somente o código do site).
-2. `siteUrl` aponta para `https://jizreel.github.io/santos-lavacar-site/` com `mode: "mock"`.
-3. GitHub Pages serve a branch `main` na raiz (`build_type: legacy`). CI (`.github/workflows/ci.yml` e `pages.yml`) regenera e valida o HTML a cada push.
-4. Releases versionadas: tag `v*.*.*` dispara `.github/workflows/release.yml` (zip + GitHub Release).
-5. O arquivo `.nojekyll` evita o processamento pelo Jekyll. Após cada push em `main`, confira a URL, HTTPS, imagens, fonte, WhatsApp, navegação mobile e página 404.
+1. Repositório: `jizreel/santos-lavacar-site`. Modo `production`, canônico `https://www.santoslavacao.com.br/`.
+2. GitHub Pages serve `main` na raiz; arquivo `CNAME` aponta para `www.santoslavacao.com.br`.
+3. DNS no Cloudflare (não altere registros MX do e-mail):
+   - `www` → CNAME → `jizreel.github.io` (proxy laranja OK com SSL **Full (strict)**; se der loop, use DNS only / cinza).
+   - Apex `@` → Redirect Rule 301 para `https://www.santoslavacao.com.br` **ou** CNAME flattening `@` → `jizreel.github.io`.
+4. Em GitHub: Settings → Pages → Custom domain = `www.santoslavacao.com.br` → aguarde verificação → Enforce HTTPS.
+5. CI valida a geração; tag `v*.*.*` gera Release.
 
 ### Passagem de mock para site operacional
 
