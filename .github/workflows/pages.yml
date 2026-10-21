@@ -1,5 +1,11 @@
 name: Deploy GitHub Pages
 
+# Pages está em modo legacy (branch main, /). O GitHub dispara
+# automaticamente o workflow pages-build-deployment a cada push.
+# Este workflow só regenera e valida o artefato estático, sem competir
+# com o deploy nativo. Para migrar para build_type=workflow, reative o
+# job deploy com actions/deploy-pages e altere Settings → Pages.
+
 on:
   push:
     branches: [main]
@@ -7,15 +13,13 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: pages-validate
   cancel-in-progress: true
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,26 +33,10 @@ jobs:
       - name: Generate site
         run: node scripts/configurar.mjs
 
-      - name: Stage static site
+      - name: Confirm Pages entrypoints
         run: |
-          mkdir -p _site
-          cp index.html privacidade.html 404.html styles.css app.js config.js robots.txt sitemap.xml .nojekyll _site/
-          # _headers é para Netlify/Cloudflare; Pages ignora, mas não prejudica
-          if [ -f _headers ]; then cp _headers _site/; fi
-          cp -r assets _site/
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          test -f index.html
+          test -f .nojekyll
+          test -f 404.html
+          test -f assets/logo.png
+          grep -q 'jizreel.github.io/santos-lavacar-site' index.html

@@ -75,9 +75,9 @@ Demonstração configurada neste repositório:
 
 1. Repositório exclusivo: `jizreel/santos-lavacar-site` (somente o código do site).
 2. `siteUrl` aponta para `https://jizreel.github.io/santos-lavacar-site/` com `mode: "mock"`.
-3. Deploy via GitHub Actions (`.github/workflows/pages.yml`): gera o site, publica o artefato estático e ativa Pages com `build_type: workflow`.
-4. O arquivo `.nojekyll` evita o processamento pelo Jekyll.
-5. Após cada push em `main`, confira a URL, HTTPS, imagens, fonte, WhatsApp, navegação mobile e página 404.
+3. GitHub Pages serve a branch `main` na raiz (`build_type: legacy`). CI (`.github/workflows/ci.yml` e `pages.yml`) regenera e valida o HTML a cada push.
+4. Releases versionadas: tag `v*.*.*` dispara `.github/workflows/release.yml` (zip + GitHub Release).
+5. O arquivo `.nojekyll` evita o processamento pelo Jekyll. Após cada push em `main`, confira a URL, HTTPS, imagens, fonte, WhatsApp, navegação mobile e página 404.
 
 ### Passagem de mock para site operacional
 
